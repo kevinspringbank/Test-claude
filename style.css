@@ -1,0 +1,383 @@
+/* Reset & base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --pink: #e91e63;
+  --pink-light: #f8bbd0;
+  --pink-dark: #c2185b;
+  --bg: #fff5f8;
+  --card-bg: #ffffff;
+  --text: #333;
+  --text-light: #777;
+  --radius: 16px;
+  --shadow: 0 2px 12px rgba(233, 30, 99, 0.12);
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+/* App container */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 100px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px 0 12px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--pink), #ff6090);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 16px 0;
+  scroll-snap-type: x mandatory;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border: none;
+  background: var(--card-bg);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.tab.active {
+  background: var(--pink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
+}
+
+/* Phone input */
+.phone-input-section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.phone-input-section label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--pink-dark);
+}
+
+.phone-input-section input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--pink-light);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--bg);
+}
+
+.phone-input-section input:focus {
+  border-color: var(--pink);
+}
+
+.phone-input-section small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-light);
+  font-size: 0.75rem;
+}
+
+/* Custom message */
+.custom-section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.custom-section textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--pink-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s;
+  background: var(--bg);
+}
+
+.custom-section textarea:focus {
+  border-color: var(--pink);
+}
+
+.custom-send {
+  margin-top: 10px;
+  width: 100%;
+  background: var(--whatsapp);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.custom-send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.custom-send:not(:disabled):active {
+  background: var(--whatsapp-dark);
+}
+
+/* Messages grid */
+.messages-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Message card */
+.message-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 18px 16px 14px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.35s ease both;
+  position: relative;
+}
+
+.message-card .category-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--pink);
+  background: var(--pink-light);
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.message-card .message-text {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.message-card .card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.send-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--whatsapp);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.send-btn:active {
+  background: var(--whatsapp-dark);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  background: var(--bg);
+  border: 2px solid #eee;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  color: var(--text-light);
+}
+
+.copy-btn:active {
+  background: #eee;
+  border-color: var(--pink-light);
+}
+
+.copy-btn.copied {
+  border-color: var(--whatsapp);
+  color: var(--whatsapp);
+}
+
+/* Shuffle button */
+.shuffle-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  padding-bottom: calc(16px + var(--safe-bottom));
+  background: linear-gradient(transparent, var(--bg) 30%);
+  text-align: center;
+}
+
+.shuffle-btn {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, var(--pink), #ff6090);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(233, 30, 99, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.shuffle-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.25);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+}
+
+.empty-state .emoji {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-card:nth-child(1) { animation-delay: 0s; }
+.message-card:nth-child(2) { animation-delay: 0.05s; }
+.message-card:nth-child(3) { animation-delay: 0.1s; }
+.message-card:nth-child(4) { animation-delay: 0.15s; }
+.message-card:nth-child(5) { animation-delay: 0.2s; }
+.message-card:nth-child(6) { animation-delay: 0.25s; }
+.message-card:nth-child(7) { animation-delay: 0.3s; }
+.message-card:nth-child(8) { animation-delay: 0.35s; }
+
+/* No phone warning */
+.no-phone-warning {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 12px;
+  animation: fadeUp 0.3s ease both;
+}

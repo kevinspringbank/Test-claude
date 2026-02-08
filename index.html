@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LoveNotes">
+  <meta name="theme-color" content="#e91e63">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <title>LoveNotes - Sweet Messages</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>LoveNotes</h1>
+      <p class="subtitle">Send something sweet</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-category="all" role="tab" aria-selected="true">All</button>
+      <button class="tab" data-category="romantic" role="tab" aria-selected="false">Romantic</button>
+      <button class="tab" data-category="funny" role="tab" aria-selected="false">Playful</button>
+      <button class="tab" data-category="morning" role="tab" aria-selected="false">Morning</button>
+      <button class="tab" data-category="night" role="tab" aria-selected="false">Goodnight</button>
+      <button class="tab" data-category="missing" role="tab" aria-selected="false">Missing You</button>
+    </nav>
+
+    <section class="phone-input-section">
+      <label for="phone">Her WhatsApp number</label>
+      <input
+        type="tel"
+        id="phone"
+        placeholder="+1 234 567 8900"
+        autocomplete="tel"
+      >
+      <small>Include country code. Saved locally for convenience.</small>
+    </section>
+
+    <section class="custom-section">
+      <textarea id="custom-message" rows="3" placeholder="Or write your own sweet message..."></textarea>
+      <button class="send-btn custom-send" id="send-custom" disabled>
+        <span class="btn-icon">&#9993;</span> Send Custom Message
+      </button>
+    </section>
+
+    <section class="messages-grid" id="messages-grid">
+      <!-- Messages are rendered by JS -->
+    </section>
+
+    <div class="shuffle-container">
+      <button class="shuffle-btn" id="shuffle-btn">Surprise Me</button>
+    </div>
+  </div>
+
+  <script src="messages.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
