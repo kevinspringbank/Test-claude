@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muse — Connector guidelines — Meta</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #555555;
+    --link: #1a0dab;
+    --rule: #d0d0d0;
+    --row: #f6f6f6;
+    --ok: #1e7b34;
+    --no: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161616;
+      --text: #e8e8e8;
+      --muted: #a8a8a8;
+      --link: #8ab4f8;
+      --rule: #3a3a3a;
+      --row: #1f1f1f;
+      --ok: #6fcf86;
+      --no: #f28b82;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161616;
+    --text: #e8e8e8;
+    --muted: #a8a8a8;
+    --link: #8ab4f8;
+    --rule: #3a3a3a;
+    --row: #1f1f1f;
+    --ok: #6fcf86;
+    --no: #f28b82;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Times New Roman", Times, Georgia, serif;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font-size: 2.2em; margin: 0 0 .4em; line-height: 1.15; }
+  h2 { font-size: 1.6em; margin: 1.6em 0 .6em; }
+  h3 { font-size: 1.2em; margin: 1.5em 0 .5em; }
+  p { margin: 0 0 1em; }
+  ul { margin: 0 0 1em; padding-left: 1.6em; }
+  li { margin-bottom: .25em; }
+  .link { color: var(--link); text-decoration: underline; }
+  .table-wrap { overflow-x: auto; margin: 0 0 1.4em; }
+  table { width: 100%; border-collapse: collapse; font-size: .95em; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+  thead th { border-bottom: 2px solid var(--rule); }
+  tbody th { white-space: nowrap; }
+  tbody tr:nth-child(even) { background: var(--row); }
+  .ok { color: var(--ok); font-weight: bold; }
+  .no { color: var(--no); font-weight: bold; }
+  hr { border: 0; border-top: 2px solid var(--text); margin: 1.6em 0; }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    tbody th { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Connector guidelines</h1>
+<p>How to build, submit, and get your connector approved and discovered in Muse.</p>
+
+<h3>1.1 Complete the task</h3>
+<p>In the eyes of the user, Muse should be able to finish all tasks your connector starts, within Muse’s approved tool scope.</p>
+<p>If your service supports booking, purchasing, or scheduling, your connector should complete those tasks. Include search, availability, pricing and terms, authorization, checkout where needed, and confirmation. Support status checks, changes, cancellations, returns, and refunds where your product offers them. Support guest checkout if it exists, so users don’t always need to log in to complete payment.</p>
+<p>Sign-in, payment verification, and required identity checks may need user input. Preserve progress so Muse can resume afterward. Sending the user to finish the entire checkout does not meet the completion requirement.</p>
+
+<h3>1.2 Add value beyond the browser</h3>
+<p>Muse can already browse websites. Your connector should improve on what’s possible in the browser experience through better information, account access, more reliable actions, or fewer steps. Show the difference with a specific use case.</p>
+<p>A read-only connector can qualify when the information is the outcome, such as an account report or live inventory analysis. A wrapper around public pages or a list of links alone is not enough.</p>
+<p>For background on Muse’s browser, see the <span class="link">Muse Help Center</span>.</p>
+
+<h2>2. Example: Cedar Stays</h2>
+<p>Cedar Stays is a fictional service whose website lets users find, book, and cancel stays. Its connector should support the same tasks. All details below are illustrative.</p>
+<p><strong>User request:</strong> “Book a room for two in Portland, December 4–6, under $500 total, with free cancellation.”</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Step</th><th>Do</th><th>Don’t</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Search</th>
+      <td><span class="ok">✓</span> Return available rooms that match the dates, guests, and cancellation preferences.</td>
+      <td><span class="no">✗</span> Return generic links to browser booking flows.</td>
+    </tr>
+    <tr>
+      <th>Price</th>
+      <td><span class="ok">✓</span> Show the total, currency, taxes, fees, payment timing, and cancellation terms.</td>
+      <td><span class="no">✗</span> Advertise a nightly rate and add mandatory fees at checkout.</td>
+    </tr>
+    <tr>
+      <th>Booking</th>
+      <td><span class="ok">✓</span> Book the approved room and return a confirmed reservation ID. Summarize the booking first prior to requesting permission to book.</td>
+      <td><span class="no">✗</span> Call a checkout link, cart, or pending request a confirmed booking.</td>
+    </tr>
+    <tr>
+      <th>Failures</th>
+      <td><span class="ok">✓</span> Check the original booking’s status before retrying. Prevent duplicate bookings and charges. Report errors and resolution paths clearly back to the agent.</td>
+      <td><span class="no">✗</span> Retry blindly or claim success without confirmation.</td>
+    </tr>
+    <tr>
+      <th>Follow-up</th>
+      <td><span class="ok">✓</span> Support the confirmations, status checks, changes, cancellations, and refunds your service offers. Show costs and obtain required approval.</td>
+      <td><span class="no">✗</span> Send users back to the website for supported follow-up tasks.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Example approval:</strong></p>
+<p>“Cedar House, one queen room for two adults, December 4–6, 2026. USD $480 total: $420 for the room plus $60 in taxes and fees, charged now to your selected payment method. Free cancellation until December 3 at 6 p.m. Pacific time; after that, the full amount is non-refundable. Good to proceed?”</p>
+<p>Because this booking includes payment, it is a sensitive write. The user chooses <strong>Allow once</strong> or <strong>Deny</strong>.</p>
+<p><strong>Confirmed result:</strong></p>
+<p>“Reservation CS-2048 is confirmed. USD $480 paid.” Report this only after the provider confirms both the reservation and payment.</p>
+
+<h2>3. Tool permissions</h2>
+
+<h3>3.1 Offer read-only account access</h3>
+<p>When using OAuth to connect to a user’s account, offer users the option to limit Muse’s permissions to <strong>Read Only</strong>, where possible.</p>
+
+<h3>3.2 How tools are classified</h3>
+<p>In the review process we’ll review your documentation and classify each tool into:</p>
+<ul>
+  <li><strong>Read:</strong> Retrieves information without changing data, account state, or permissions. Examples include searching availability and checking a booking.</li>
+  <li><strong>Write:</strong> Creates, changes, or deletes data, changes permissions, or acts on the user’s behalf. Examples include saving a favorite or creating a reservation.</li>
+  <li><strong>Sensitive write:</strong> Certain actions that produce irreversible or consequential actions (make a purchase, send an email, etc.)</li>
+</ul>
+<p>A tool that combines reads and writes must be classified as a write. Never hide a send, share, publish, or payment action in a tool described as a read or routine edit.</p>
+<p>Tool descriptions must be factual. Do not use tool descriptions or responses to instruct Muse to ignore its rules, steer away from competitors, access unrelated data, force recommendations, conceal commercial interests, or take unrequested actions.</p>
+
+<h3>3.3 Permission choices</h3>
+<p>Muse users have controls over what actions Muse takes with or without their approval. Currently reads and writes from platform connectors default to <strong>Ask on first use</strong>. Users can choose <strong>Always allow</strong> for tools that are not sensitive.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Tool</th><th>When Muse asks</th><th>User choices</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Read</th>
+      <td>On first use, then on each use unless Always allow is selected.</td>
+      <td>Allow once · Always allow · Deny</td>
+    </tr>
+    <tr>
+      <th>Write, not sensitive</th>
+      <td>On first use, then on each use unless Always allow is selected.</td>
+      <td>Allow once · Always allow · Deny</td>
+    </tr>
+    <tr>
+      <th>Write, sensitive</th>
+      <td>Every use.</td>
+      <td>Allow once · Deny</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Allow once</strong> covers one use. <strong>Always allow</strong> applies to future uses of that tool within its approved scope and can be revoked. <strong>Deny</strong> stops the requested tool use. Sensitive writes cannot be set to Always allow, including through Settings or a saved permission.</p>
+<p>These approval prompts are called <strong>human-in-the-loop (HITL)</strong> checks. For help with Muse’s controls, see the <span class="link">Muse Help Center</span>.</p>
+
+<h3>3.4 Respect the scope of approval</h3>
+<p>Connecting an account does not authorize every action. For actions that require approval, show the details and execute only what the user approved. <strong>Allow once</strong> covers only the action and details shown. If any details (e.g. the price, recipient, scope) change after a write is approved, require a new fresh write to be approved.</p>
+<p>Respect Muse’s approval and safety controls. Do not bypass them, ask users to disable them, or reuse approval for unrelated actions. Do not add products, tips, subscriptions, or fees without authorization.</p>
+
+<h2>4. Trust and integrity</h2>
+
+<h3>4.1 Comply with our terms</h3>
+<p>Please take time to read and completely understand our <span class="link">Connector Platform Terms</span>. You are required to fully comply with these terms in order to provide a Connector on Muse.</p>
+
+<h3>4.2 Ask for only required data, and use it only to provide your Connector</h3>
+<p>Use the minimum data required for each tool to provide its advertised functionality safely and reliably. Use data people share through Connectors only as necessary to fulfill their requests and to provide, maintain, secure, support, and improve your Connector consistent with your privacy policy and other applicable documentation.</p>
+<p>We do not permit secondary uses of this data. Do not sell it, use it for unrelated advertising, build unrelated profiles, infer sensitive characteristics, or use it for model training.</p>
+<p>Share data only when necessary to fulfill the user’s request, and do not give recipients broader rights than you have. Retain it only as long as necessary, and delete or make it inaccessible when it is no longer needed, access is revoked, or the user requests deletion.</p>
+
+<h3>4.3 Be accurate and transparent</h3>
+<p>Accurately describe your identity, affiliations, capabilities, pricing, availability, and results. Disclose account, plan, region, age, and usage restrictions before use. Label advertising, sponsored results, and commercial relationships that influence recommendations. Do not fabricate reviews, urgency, discounts, or successful outcomes.</p>
+
+<h3>4.4 Security</h3>
+<p>Protect data accessed through your Connector with reasonable administrative, technical, and physical safeguards. Encrypt data in transit and sensitive data at rest, restrict access to authorized personnel and systems, apply least-privilege permissions, and isolate each user’s data.</p>
+<p>Protect authentication credentials, payment data, and other secrets. Do not expose them in prompts, tool descriptions or responses, URLs, analytics, or logs; collect and transmit them only through secure flows. Stop access when authorization is revoked, and securely delete data as required in 4.2.</p>
+
+<h3>4.5 Prohibited tools and Connectors</h3>
+<p>You must not engage in any prohibited practices, or share any prohibited content, as described in our Connector Platform Terms.</p>
+<p>Payments for eligible purchases and bookings are reviewed separately under our transaction requirements in 4.7.</p>
+
+<h3>4.6 Finance Connectors</h3>
+<p>We allow Connectors that have read access to financial data, but are not currently approving new financial money movement tools, such as transfers between financial accounts, or tools that place financial trade orders at this time. We’ll update this policy as we build functionality sufficient to support these capabilities safely and securely.</p>
+
+<h3>4.7 Transactions</h3>
+<p>Before commitment, your tools should return all relevant information, such as: the seller, full price and currency, recurring charges, key terms, and cancellation or refund policy. Follow the approval requirements in 3.4.</p>
+<p>Distinguish quoted, pending, confirmed, failed, and cancelled actions. Report uncertain outcomes honestly and check their status before retrying. Prevent duplicate transactions.</p>
+<p>Provide receipts or equivalent records and a clear route to support, disputes, and eligible refunds.</p>
+
+<h3>4.8 Incident response</h3>
+<p>In accordance with Connector Platform Terms, you must notify Meta (vendor-incident@meta.com) within 48 hours of a security incident involving user data and cooperate with any investigation.</p>
+
+<h3>4.9 Enforcement</h3>
+<p>Meta may require changes, limit capabilities or distribution, suspend access, or remove Connectors for policy violations, security risks, misleading behavior, persistent quality failures or any other reason.</p>
+
+<h2>5. Submit through the Muse Connector Platform</h2>
+<p>Use the submission form to submit the information below. Complete any additional intake requirements shown there, and follow its instructions for submitting credentials securely.</p>
+
+<h3>5.1 Connector overview</h3>
+<p>Describe the intended users, supported tasks, how the connector improves on browser use, and any account, plan, or regional restrictions.</p>
+
+<h3>5.2 Business verification and terms</h3>
+<p>Provide the business information and supporting evidence requested to verify your organization and your authority to submit the connector. Keep these details consistent with your company website and connector listing.</p>
+<p>Include authorized brand assets, privacy and product terms, support and security contacts, and a developer responsible for maintenance. Accept the applicable Muse developer terms.</p>
+
+<h3>5.3 Data processing questionnaire</h3>
+<p>Explain what data the connector accesses and why, how it is protected, who it is shared with, how long it is kept, and how it is deleted. Ensure your answers reflect how the connector works and match your privacy policy.</p>
+
+<h3>5.4 Integration credentials and tool documentation</h3>
+<p>Provide the endpoint, authentication setup, requested scopes, and credentials Muse needs to connect to your service, such as OAuth client credentials or an API key. Identify whether these apply to a test or production environment.</p>
+<p>In your API or MCP documentation, include setup instructions, inputs and outputs, read/write classifications, sensitive designations, permissions, side effects, status handling, errors, and rate limits.</p>
+
+<h3>5.5 Test user credentials and demo</h3>
+<p>Provide a dedicated test account so reviewers can connect your service and exercise each submitted tool. Include sign-in instructions, required permissions, representative test data, and any account or regional limits. Keep the account accessible throughout review. For transaction tools, explain how to test checkout without real charges.</p>
+
+<h3>5.6 Tool annotation (coming soon)</h3>
+<p>You’ll be able to classify each tool as Read or Write and mark Sensitive writes in the portal. For now, include these annotations in your tool documentation, following Section 3.</p>
+
+<h3>5.7 Submission status</h3>
+<p>Check the portal for your connector’s review status. Due to submission volume, we cannot respond to individual messages or emails about status.</p>
+
+<h2>6. Review process</h2>
+<p>We review submissions in three stages. Meeting these guidelines does not guarantee approval.</p>
+
+<h3>6.1 Risk assessment</h3>
+<p>We comprehensively review the security, privacy and integrity risks associated with your Connector. We may reach out to you for further information.</p>
+
+<h3>6.2 Tool review</h3>
+<p>We review each tool, including its read/write classification and sensitive designation, and approve only tools that comply with Muse policies. Connector approval does not cover unapproved tools.</p>
+
+<h3>6.3 End-to-end QA</h3>
+<p>We test complete workflows, permissions, results, and failure handling, including manual review. We verify that sensitive writes require approval every time.</p>
+
+<h2>7. Connector discovery</h2>
+
+<h3>7.1 Discovery</h3>
+<p>Approved connectors are discoverable by the Muse agent and in <strong>Settings &gt; Connectors</strong>. As more users connect to and get value from your connector, more people will discover it.</p>
+<p>For help connecting services, see the <span class="link">Muse Help Center</span>.</p>
+
+<h3>7.2 Featuring</h3>
+<p>Featuring is a separate editorial decision. We consider:</p>
+<ul>
+  <li><strong>Usefulness:</strong> A clear improvement over what Muse can do in the browser.</li>
+  <li><strong>Completion:</strong> Core tasks finished with little repetition or unnecessary handoff.</li>
+  <li><strong>Reliability:</strong> Accurate results and safe recovery across supported accounts, regions, and devices.</li>
+  <li><strong>Maintenance:</strong> Current documentation, responsive support, and improvements based on feedback.</li>
+</ul>
+<p>Meeting these guidelines does not guarantee featuring, ranking, or traffic. Placement may change over time.</p>
+
+<hr>
+
+<p>This documentation is meant to provide guidance only, is incorporated into and governed by the Connector Terms, and is subject to change at any time.</p>
+
+</main>
+</body>
+</html>
