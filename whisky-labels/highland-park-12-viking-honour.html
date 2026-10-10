@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Highland Park 12 Label</title>
+<style>
+  :root { --paper:#f4ecd8; --ink:#2b1d12; --accent:#8a5a1f; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px 16px; background:#ddd; font-family:Georgia, "Times New Roman", serif; color:var(--ink); }
+  .label { width:90mm; max-width:100%; margin:0 auto; background:var(--paper); border:2px solid var(--ink);
+           outline:1px solid var(--ink); outline-offset:-6px; padding:8mm 7mm; text-align:center; }
+  .brand { font-size:26px; letter-spacing:4px; text-transform:uppercase; margin:0; }
+  .sub { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin:4px 0 0; }
+  .age { font-size:56px; line-height:1; margin:14px 0 0; font-weight:bold; }
+  .age small { display:block; font-size:12px; letter-spacing:4px; text-transform:uppercase; font-weight:normal; margin-top:4px; }
+  .series { font-style:italic; font-size:18px; margin:12px 0; }
+  hr { border:0; border-top:1px solid var(--ink); margin:10px 0; }
+  .cask { font-size:12px; margin:0 0 10px; }
+  .meta { display:flex; justify-content:space-between; font-size:13px; font-weight:bold; }
+  .foot { font-size:9px; letter-spacing:1px; margin-top:10px; color:#5a4636; }
+  @media print { body { background:none; padding:0; } }
+</style>
+</head>
+<body>
+  <div class="label">
+    <p class="brand">Highland Park</p>
+    <p class="sub">Single Malt Scotch Whisky · Orkney</p>
+    <p class="age">12<small>Years Old</small></p>
+    <p class="series">Viking Honour</p>
+    <hr>
+    <p class="cask">Matured in European &amp; American sherry seasoned oak casks</p>
+    <div class="meta"><span>40.0% vol</span><span>70cl</span></div>
+    <hr>
+    <div class="foot">Distillery Bottling · Whiskybase WB96755 · EAN 5010314570101</div>
+  </div>
+</body>
+</html>
